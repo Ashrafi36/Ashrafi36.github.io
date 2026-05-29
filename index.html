@@ -1,42 +1,897 @@
----
-name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
-license: Complete terms in LICENSE.txt
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackLab — Hacking Techniques Explained</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+  :root {
+    --bg: #050a0e;
+    --bg2: #0a1520;
+    --bg3: #0f1f2e;
+    --green: #00ff88;
+    --cyan: #00d4ff;
+    --red: #ff2d55;
+    --amber: #ffb800;
+    --text: #c8d8e8;
+    --muted: #4a6a7a;
+    --border: #1a3040;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-head: 'Rajdhani', sans-serif;
+  }
 
-The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+  html { scroll-behavior: smooth; }
 
-## Design Thinking
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-Before coding, understand the context and commit to a BOLD aesthetic direction:
-- **Purpose**: What problem does this interface solve? Who uses it?
-- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
-- **Constraints**: Technical requirements (framework, performance, accessibility).
-- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,136,0.015) 2px,
+      rgba(0,255,136,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
 
-**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+  /* ── MATRIX CANVAS ── */
+  #matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
-- Production-grade and functional
-- Visually striking and memorable
-- Cohesive with a clear aesthetic point-of-view
-- Meticulously refined in every detail
+  /* ── LAYOUT ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 
-## Frontend Aesthetics Guidelines
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 10, 14, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
 
-Focus on:
-- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
-- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
-- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
-- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
-- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+  nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 
-NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    color: var(--green);
+    text-decoration: none;
+    letter-spacing: 2px;
+  }
 
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+  .nav-logo span { color: var(--cyan); }
 
-**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
 
-Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0 4rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 4px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.3s ease forwards;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.5s ease forwards;
+  }
+
+  .hero h1 .accent { color: var(--green); }
+  .hero h1 .accent2 { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.7s ease forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.9s ease forwards;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: var(--bg);
+    font-weight: 700;
+  }
+
+  .btn-primary:hover {
+    background: #00cc70;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+  }
+
+  .btn-outline:hover {
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── TERMINAL WIDGET ── */
+  .terminal {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.6s 1.1s ease forwards;
+    margin-top: 3rem;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .terminal-line {
+    color: var(--green);
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .terminal-line.cmd::before { content: '$ '; color: var(--cyan); }
+  .terminal-line.out { color: var(--muted); }
+  .terminal-line.warn { color: var(--amber); }
+  .terminal-line.success { color: var(--green); }
+
+  .cursor-blink {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--green);
+    vertical-align: -2px;
+    animation: blink 1s infinite;
+  }
+
+  /* ── SECTION ── */
+  section {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── HACK CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hack-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hack-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--green));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .hack-card:hover { border-color: var(--card-accent, var(--green)); transform: translateY(-4px); }
+  .hack-card:hover::before { transform: scaleX(1); }
+
+  .card-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    background: rgba(0,255,136,0.1);
+    color: var(--green);
+    border: 1px solid rgba(0,255,136,0.2);
+  }
+
+  .card-tag.network { background: rgba(0,212,255,0.1); color: var(--cyan); border-color: rgba(0,212,255,0.2); }
+  .card-tag.social { background: rgba(255,184,0,0.1); color: var(--amber); border-color: rgba(255,184,0,0.2); }
+  .card-tag.exploit { background: rgba(255,45,85,0.1); color: var(--red); border-color: rgba(255,45,85,0.2); }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-steps {
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .card-steps li {
+    counter-increment: step;
+    padding: 0.5rem 0 0.5rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .card-steps li:last-child { border-bottom: none; }
+
+  .card-steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  /* ── HOW IT WORKS TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--green), var(--cyan), var(--border));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.5s;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.55rem;
+    top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(0,255,136,0.5);
+  }
+
+  .timeline-item:nth-child(2) .timeline-dot { background: var(--cyan); box-shadow: 0 0 12px rgba(0,212,255,0.5); }
+  .timeline-item:nth-child(3) .timeline-dot { background: var(--amber); box-shadow: 0 0 12px rgba(255,184,0,0.5); }
+  .timeline-item:nth-child(4) .timeline-dot { background: var(--red); box-shadow: 0 0 12px rgba(255,45,85,0.5); }
+  .timeline-item:nth-child(5) .timeline-dot { background: var(--green); box-shadow: 0 0 12px rgba(0,255,136,0.5); }
+
+  .timeline-phase {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-body {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ── TOOLS TABLE ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .tool-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s;
+  }
+
+  .tool-item:hover {
+    border-color: var(--cyan);
+    background: var(--bg3);
+  }
+
+  .tool-icon {
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    background: rgba(0,212,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .tool-name {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+    margin-bottom: 2px;
+  }
+
+  .tool-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: rgba(255,45,85,0.06);
+    border: 1px solid rgba(255,45,85,0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .disclaimer-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+
+  .disclaimer p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  footer span { color: var(--green); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes glitch {
+    0%, 100% { transform: none; text-shadow: none; }
+    20% { transform: skewX(-4deg); text-shadow: 2px 0 var(--red); }
+    40% { transform: skewX(2deg); text-shadow: -2px 0 var(--cyan); }
+    60% { transform: none; }
+  }
+
+  .glitch { animation: glitch 4s infinite; display: inline-block; }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(0,255,136,0); }
+  }
+
+  .pulse { animation: pulse-glow 2s infinite; }
+
+  /* ── TYPEWRITER ── */
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--green);
+    animation: typing 3s steps(40, end) forwards, blink-cursor 0.75s step-end 3s infinite;
+    width: 0;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink-cursor {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--green); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a class="nav-logo" href="#">[<span>HACK</span>LAB]</a>
+    <ul class="nav-links">
+      <li><a href="#techniques">TECHNIQUES</a></li>
+      <li><a href="#how-it-works">HOW IT WORKS</a></li>
+      <li><a href="#tools">TOOLS</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <p class="hero-eyebrow">// ETHICAL HACKING & CYBERSECURITY EDUCATION</p>
+    <h1>
+      <span class="glitch">Understand</span><br>
+      How <span class="accent">Hackers</span><br>
+      <span class="accent2">Think.</span>
+    </h1>
+    <p class="hero-sub">
+      A deep-dive into offensive security techniques — explained clearly so defenders can build better defenses.
+    </p>
+    <div class="hero-cta">
+      <a href="#techniques" class="btn btn-primary">EXPLORE TECHNIQUES</a>
+      <a href="#how-it-works" class="btn btn-outline">HOW IT WORKS</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <div class="terminal-title">hacklab — bash</div>
+      </div>
+      <div class="terminal-line cmd" id="t1" style="opacity:0">nmap -sV -O target.local</div>
+      <div class="terminal-line out" id="t2" style="opacity:0">Starting Nmap scan on 192.168.1.0/24...</div>
+      <div class="terminal-line out" id="t3" style="opacity:0">Discovered open port 22/tcp — OpenSSH 8.9</div>
+      <div class="terminal-line out" id="t4" style="opacity:0">Discovered open port 80/tcp — Apache/2.4.52</div>
+      <div class="terminal-line warn" id="t5" style="opacity:0">WARNING: Port 3306 exposed — MySQL 8.0.28</div>
+      <div class="terminal-line success" id="t6" style="opacity:0">Scan complete. 3 services enumerated. <span class="cursor-blink"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNIQUES -->
+<section id="techniques">
+  <div class="container">
+    <p class="section-label reveal">// 01 — ATTACK VECTORS</p>
+    <h2 class="section-title reveal">Common Hacking Techniques</h2>
+    <p class="section-desc reveal">Each technique explained with real mechanics — how attackers execute, what they target, and how to defend.</p>
+
+    <div class="cards-grid">
+
+      <div class="hack-card reveal" style="--card-accent: var(--green)">
+        <div class="card-tag">WEB</div>
+        <div class="card-title">SQL Injection</div>
+        <div class="card-desc">Attackers insert malicious SQL into input fields to manipulate database queries, bypassing authentication or dumping data.</div>
+        <ul class="card-steps">
+          <li>Identify unsanitized input fields</li>
+          <li>Inject payload: <code>' OR 1=1 --</code></li>
+          <li>Database executes attacker's query</li>
+          <li>Data extracted or auth bypassed</li>
+        </ul>
+      </div>
+
+      <div class="hack-card reveal" style="--card-accent: var(--cyan)">
+        <div class="card-tag network">NETWORK</div>
+        <div class="card-title">Man-in-the-Middle</div>
+        <div class="card-desc">Attacker secretly intercepts and potentially alters communications between two parties who believe they're talking directly.</div>
+        <ul class="card-steps">
+          <li>ARP spoofing to redirect traffic</li>
+          <li>Position between victim and gateway</li>
+          <li>Intercept & inspect packets</li>
+          <li>Optionally inject malicious content</li>
+        </ul>
+      </div>
+
+      <div class="hack-card reveal" style="--card-accent: var(--amber)">
+        <div class="card-tag social">SOCIAL</div>
+        <div class="card-title">Phishing</div>
+        <div class="card-desc">Deceiving users into revealing credentials or installing malware through fake emails, websites, or messages that appear legitimate.</div>
+        <ul class="card-steps">
+          <li>Clone legitimate login page</li>
+          <li>Craft convincing lure email</li>
+          <li>Victim submits credentials</li>
+          <li>Credentials captured by attacker</li>
+        </ul>
+      </div>
+
+      <div class="hack-card reveal" style="--card-accent: var(--red)">
+        <div class="card-tag exploit">EXPLOIT</div>
+        <div class="card-title">Buffer Overflow</div>
+        <div class="card-desc">Writing data beyond a buffer's allocated boundary to overwrite adjacent memory — potentially hijacking program execution flow.</div>
+        <ul class="card-steps">
+          <li>Locate vulnerable input buffer</li>
+          <li>Craft oversized payload</li>
+          <li>Overwrite return address</li>
+          <li>Redirect execution to shellcode</li>
+        </ul>
+      </div>
+
+      <div class="hack-card reveal" style="--card-accent: var(--green)">
+        <div class="card-tag">WEB</div>
+        <div class="card-title">Cross-Site Scripting (XSS)</div>
+        <div class="card-desc">Injecting malicious scripts into trusted websites that execute in other users' browsers, stealing cookies or hijacking sessions.</div>
+        <ul class="card-steps">
+          <li>Find unescaped output in app</li>
+          <li>Inject <code>&lt;script&gt;</code> payload</li>
+          <li>Victim's browser executes script</li>
+          <li>Session token or data stolen</li>
+        </ul>
+      </div>
+
+      <div class="hack-card reveal" style="--card-accent: var(--cyan)">
+        <div class="card-tag network">NETWORK</div>
+        <div class="card-title">Port Scanning & Enumeration</div>
+        <div class="card-desc">Systematically probing a host's open ports to map running services, operating systems, and potential entry points before an attack.</div>
+        <ul class="card-steps">
+          <li>Send SYN packets to port range</li>
+          <li>Analyze RST / SYN-ACK responses</li>
+          <li>Banner-grab service versions</li>
+          <li>Cross-reference known CVEs</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <p class="section-label reveal">// 02 — ATTACK LIFECYCLE</p>
+    <h2 class="section-title reveal">How a Hack Actually Works</h2>
+    <p class="section-desc reveal">Every sophisticated attack follows a structured methodology. Understanding it helps defenders anticipate each phase.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot pulse"></div>
+        <div class="timeline-phase">PHASE 01</div>
+        <div class="timeline-heading">Reconnaissance</div>
+        <div class="timeline-body">Passive and active information gathering — OSINT on the target, DNS enumeration, employee profiling via LinkedIn, and scanning for exposed infrastructure using Shodan.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">PHASE 02</div>
+        <div class="timeline-heading">Scanning & Enumeration</div>
+        <div class="timeline-body">Active probing with Nmap, Nessus, or Nikto to discover open ports, service versions, and misconfigured systems. Building a map of the attack surface.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">PHASE 03</div>
+        <div class="timeline-heading">Gaining Access</div>
+        <div class="timeline-body">Exploiting a vulnerability — whether a CVE in an unpatched service, a weak password through brute force, or a phishing campaign targeting a privileged user.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">PHASE 04</div>
+        <div class="timeline-heading">Maintaining Persistence</div>
+        <div class="timeline-body">Installing backdoors, adding rogue admin accounts, or deploying rootkits to ensure the attacker can return even after credentials are changed or patches are applied.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">PHASE 05</div>
+        <div class="timeline-heading">Covering Tracks</div>
+        <div class="timeline-body">Clearing event logs, modifying timestamps, and removing artifacts to make forensic investigation difficult and delay detection of the breach.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <p class="section-label reveal">// 03 — SECURITY TOOLKIT</p>
+    <h2 class="section-title reveal">Tools of the Trade</h2>
+    <p class="section-desc reveal">Industry-standard tools used by both attackers and defenders. Every security professional should know them.</p>
+
+    <div class="tools-grid">
+      <div class="tool-item reveal">
+        <div class="tool-icon">🔍</div>
+        <div>
+          <div class="tool-name">Nmap</div>
+          <div class="tool-desc">Network discovery & port scanning</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">🐉</div>
+        <div>
+          <div class="tool-name">Kali Linux</div>
+          <div class="tool-desc">Penetration testing OS</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">🕷️</div>
+        <div>
+          <div class="tool-name">Burp Suite</div>
+          <div class="tool-desc">Web app security testing proxy</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">💣</div>
+        <div>
+          <div class="tool-name">Metasploit</div>
+          <div class="tool-desc">Exploit framework & payloads</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">🦈</div>
+        <div>
+          <div class="tool-name">Wireshark</div>
+          <div class="tool-desc">Network packet analysis</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">🔑</div>
+        <div>
+          <div class="tool-name">Hashcat</div>
+          <div class="tool-desc">GPU-accelerated password cracking</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">📡</div>
+        <div>
+          <div class="tool-name">Aircrack-ng</div>
+          <div class="tool-desc">WiFi security auditing suite</div>
+        </div>
+      </div>
+      <div class="tool-item reveal">
+        <div class="tool-icon">🗺️</div>
+        <div>
+          <div class="tool-name">Shodan</div>
+          <div class="tool-desc">Internet-connected device search</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer reveal" style="margin-top: 3rem;">
+      <div class="disclaimer-label">⚠ LEGAL NOTICE</div>
+      <p>All techniques and tools described on this site are for <strong>educational purposes only</strong>. Unauthorized access to computer systems is illegal. Always operate within legal boundaries — obtain written permission before testing any system you don't own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; width:100%">
+    <span>[HACKLAB] — for educational use only</span>
+    <span>built with <span>♥</span> for security researchers</span>
+  </div>
+</footer>
+
+<script>
+// Matrix rain
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:<>?/\\';
+let drops = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const cols = Math.floor(canvas.width / 14);
+  drops = Array.from({ length: cols }, () => Math.random() * -50);
+}
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(5, 10, 14, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#00ff88';
+  ctx.font = '13px Share Tech Mono';
+  drops.forEach((y, i) => {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(char, i * 14, y * 14);
+    if (y * 14 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i] += 0.5;
+  });
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+setInterval(drawMatrix, 50);
+
+// Terminal animation
+const lines = ['t1','t2','t3','t4','t5','t6'];
+lines.forEach((id, i) => {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.style.opacity = '1';
+  }, 1500 + i * 600);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+// Stagger reveals in same container
+const cards = document.querySelectorAll('.hack-card.reveal');
+cards.forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.08}s`;
+});
+
+const tools = document.querySelectorAll('.tool-item.reveal');
+tools.forEach((tool, i) => {
+  tool.style.transitionDelay = `${i * 0.06}s`;
+});
+</script>
+</body>
+</html>
